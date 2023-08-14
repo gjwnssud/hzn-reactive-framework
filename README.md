@@ -1,2 +1,3 @@
 # hzn-framework
-private framework
+
+it's a personal framework
