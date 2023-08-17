@@ -1,7 +1,5 @@
-spring:
-  profiles:
-    active: dev
-
 server:
   shutdown: graceful
   port: 8080
+
+test: dev

@@ -1,7 +1,5 @@
-spring:
-  profiles:
-    active: prod
-
 server:
   shutdown: graceful
   port: 8080
+
+test: prod

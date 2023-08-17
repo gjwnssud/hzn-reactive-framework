@@ -1,7 +1,10 @@
-spring:
-  profiles:
-    active: local
-
 server:
   shutdown: graceful
   port: 8080
+
+test: local
+spring:
+  security:
+    user:
+      name: user
+      password: user

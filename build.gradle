@@ -41,11 +41,15 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.named('processResources') {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
 sourceSets {
     main {
         resources {
-            srcDirs 'src/main/resources', 'src/main/resources-${profile}'
+            srcDirs "src/main/resources", "src/main/resources-${profile}"
         }
     }
 }
