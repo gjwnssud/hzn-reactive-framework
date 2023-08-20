@@ -8,3 +8,5 @@ spring:
     user:
       name: user
       password: user
+  thymeleaf:
+    cache: false
