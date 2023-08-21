@@ -2,11 +2,9 @@ server:
   shutdown: graceful
   port: 8080
 
-test: local
 spring:
-  security:
-    user:
-      name: user
-      password: user
   thymeleaf:
     cache: false
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hzn-framework?maxPoolSize=10
