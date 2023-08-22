@@ -16,7 +16,7 @@ import java.util.Map;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
-	@Value("${allowed.origin}")
+	@Value("${allowed.origins}")
 	private List<String> allowedOrigins;
 
 	@Bean
