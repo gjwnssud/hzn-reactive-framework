@@ -8,3 +8,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/hzn-framework?maxPoolSize=10
+
+allowed:
+  origin: *
