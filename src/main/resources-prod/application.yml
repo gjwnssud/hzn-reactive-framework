@@ -5,7 +5,8 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/hzn-framework?maxPoolSize=10
+      uri: mongodb://hzn:hzn@localhost:27017/hzn-framework?minPoolSize=1&maxPoolSize=10
+      auto-index-creation: true
 
 allowed:
-  origins: *
+  origins: "*"
