@@ -12,3 +12,12 @@ spring:
 
 allowed:
   origins: "*"
+
+jwt:
+  secret: 67A64CE669E7C623A68DDD0B0B7AA9E9FC465FBC4FFCA83FD477B4DD6B07EA2F
+  expiration: 172800
+  password:
+    encoder:
+      secret: hzn
+      iteration: 33
+      keyLength: 256

@@ -2,8 +2,7 @@ package com.hzn.reactive.framework.documents.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hzn.reactive.framework.enums.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,8 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Document(collection = "user")
-@Setter
+@Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 	@Id
 	private String     id;
