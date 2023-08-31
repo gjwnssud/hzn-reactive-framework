@@ -1,7 +1,7 @@
 package com.hzn.reactive.framework.api.v1.service.user;
 
 import com.hzn.reactive.framework.api.document.user.User;
-import com.hzn.reactive.framework.api.user.UserRepository;
+import com.hzn.reactive.framework.api.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

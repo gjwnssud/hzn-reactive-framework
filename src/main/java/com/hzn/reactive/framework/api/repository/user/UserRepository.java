@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.api.user;
+package com.hzn.reactive.framework.api.repository.user;
 
 import com.hzn.reactive.framework.api.document.user.User;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
