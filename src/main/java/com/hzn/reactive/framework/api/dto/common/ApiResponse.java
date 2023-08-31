@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.dto.common;
+package com.hzn.reactive.framework.api.dto.common;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ApiResponse<T> {
-	private int    status;
+	private int status;
 	private String message;
-	private T      data;
+	private T data;
 }

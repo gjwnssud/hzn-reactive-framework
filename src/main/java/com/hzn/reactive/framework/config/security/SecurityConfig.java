@@ -1,5 +1,8 @@
 package com.hzn.reactive.framework.config.security;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,37 +14,31 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	@Value("${allowed.origins}")
+	@Value ("${allowed.origins}")
 	private List<String> allowedOrigins;
 	private final AuthenticationManager authenticationManager;
 	private final SecurityContextRepository securityContextRepository;
 
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain (ServerHttpSecurity http) {
-		http.csrf (ServerHttpSecurity.CsrfSpec::disable)
-				.cors (corsSpec -> corsSpec.configurationSource (corsConfigurationSource ()))
-				.formLogin (ServerHttpSecurity.FormLoginSpec::disable)
-				.httpBasic (ServerHttpSecurity.HttpBasicSpec::disable)
-				.exceptionHandling (exceptionHandlingSpec -> exceptionHandlingSpec.authenticationEntryPoint (((exchange, denied) -> Mono.fromRunnable (() -> exchange.getResponse ().setStatusCode (HttpStatus.UNAUTHORIZED))))
-						.accessDeniedHandler ((exchange, denied) -> Mono.fromRunnable (() -> exchange.getResponse ().setStatusCode (HttpStatus.FORBIDDEN))))
-				.authenticationManager (authenticationManager)
-				.securityContextRepository (securityContextRepository)
-				.authorizeExchange (authorizeExchangeSpec -> authorizeExchangeSpec.pathMatchers (HttpMethod.OPTIONS).permitAll ()
-						.pathMatchers ("/", "/login").permitAll ()
-						.anyExchange ().authenticated ());
+		http.csrf (ServerHttpSecurity.CsrfSpec::disable).cors (corsSpec -> corsSpec.configurationSource (corsConfigurationSource ()))
+			.formLogin (ServerHttpSecurity.FormLoginSpec::disable).httpBasic (ServerHttpSecurity.HttpBasicSpec::disable).exceptionHandling (
+					exceptionHandlingSpec -> exceptionHandlingSpec.authenticationEntryPoint (
+																		  ((exchange, denied) -> Mono.fromRunnable (() -> exchange.getResponse ().setStatusCode (HttpStatus.UNAUTHORIZED))))
+																  .accessDeniedHandler ((exchange, denied) -> Mono.fromRunnable (
+																		  () -> exchange.getResponse ().setStatusCode (HttpStatus.FORBIDDEN))))
+			.authenticationManager (authenticationManager).securityContextRepository (securityContextRepository).authorizeExchange (
+					authorizeExchangeSpec -> authorizeExchangeSpec.pathMatchers (HttpMethod.OPTIONS).permitAll ()
+																  .pathMatchers ("/", "/favicon.ico", "/login").permitAll ().anyExchange ()
+																  .authenticated ());
 		return http.build ();
 	}
 

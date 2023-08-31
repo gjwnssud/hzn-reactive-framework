@@ -1,6 +1,6 @@
 package com.hzn.reactive.framework.config;
 
-import com.hzn.reactive.framework.documents.user.User;
+import com.hzn.reactive.framework.api.document.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -16,10 +16,10 @@ import java.util.Map;
 @Component
 public class Jwt {
 
-	@Value("${jwt.secret}")
+	@Value ("${jwt.secret}")
 	private String secret;
 
-	@Value("${jwt.expiration}")
+	@Value ("${jwt.expiration}")
 	private String expirationTime;
 
 	private Key key;
@@ -56,7 +56,8 @@ public class Jwt {
 		long expirationTimeLong = Long.parseLong (expirationTime); //in second
 		final Date createdDate = new Date ();
 		final Date expirationDate = new Date (createdDate.getTime () + expirationTimeLong * 1000);
-		return Jwts.builder ().setClaims (claims).setSubject (username).setIssuedAt (createdDate).setExpiration (expirationDate).signWith (key).compact ();
+		return Jwts.builder ().setClaims (claims).setSubject (username).setIssuedAt (createdDate).setExpiration (expirationDate).signWith (key)
+				   .compact ();
 	}
 
 	public Boolean validateToken (String token) {

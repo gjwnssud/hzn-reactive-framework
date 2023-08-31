@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.dto.request;
+package com.hzn.reactive.framework.api.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

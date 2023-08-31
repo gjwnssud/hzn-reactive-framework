@@ -1,7 +1,7 @@
-package com.hzn.reactive.framework.documents.user;
+package com.hzn.reactive.framework.api.document.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hzn.reactive.framework.enums.Role;
+import com.hzn.reactive.framework.api.enums.Role;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,22 +13,24 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Document(collection = "user")
+@Document (collection = "user")
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
 	@Id
-	private String     id;
-	private String     username;
-	private String     password;
-	private Boolean    enabled;
+	private String id;
+	private String username;
+	private String password;
+	private Boolean enabled;
 	private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities () {
-		return roles.stream ().map (role -> new SimpleGrantedAuthority (role.name ())).collect (Collectors.toList ());
+		return roles.stream ()
+					.map (role -> new SimpleGrantedAuthority (role.name ()))
+					.collect (Collectors.toList ());
 	}
 
 	@JsonIgnore

@@ -24,8 +24,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 	@Override
 	public Mono<SecurityContext> load (ServerWebExchange exchange) {
 		return Mono.justOrEmpty (exchange.getRequest ().getHeaders ().getFirst (HttpHeaders.AUTHORIZATION))
-				.filter (header -> header.startsWith ("Bearer "))
-				.flatMap (header -> {
+				   .filter (header -> header.startsWith ("Bearer ")).flatMap (header -> {
 					String token = header.substring (7);
 					Authentication authentication = new UsernamePasswordAuthenticationToken (token, token);
 					return authenticationManager.authenticate (authentication).map (SecurityContextImpl::new);

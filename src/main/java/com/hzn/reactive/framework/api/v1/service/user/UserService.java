@@ -1,14 +1,14 @@
 package com.hzn.reactive.framework.api.v1.service.user;
 
-import com.hzn.reactive.framework.documents.user.User;
-import com.hzn.reactive.framework.repository.user.UserRepository;
+import com.hzn.reactive.framework.api.document.user.User;
+import com.hzn.reactive.framework.api.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserService  {
+public class UserService {
 	private final UserRepository userRepository;
 
 	public Mono<User> findByUsername (String username) {

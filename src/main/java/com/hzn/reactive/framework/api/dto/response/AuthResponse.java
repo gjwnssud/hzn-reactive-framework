@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.dto.response;
+package com.hzn.reactive.framework.api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

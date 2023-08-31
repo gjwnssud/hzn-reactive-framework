@@ -23,13 +23,11 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 	public Mono<Authentication> authenticate (Authentication authentication) {
 		String token = authentication.getCredentials ().toString ();
 		String username = jwt.getUsernameFromToken (token);
-		return Mono.just (jwt.validateToken (token))
-				.filter (valid -> valid)
-				.switchIfEmpty (Mono.empty ())
-				.map (valid -> {
-					Claims claims = jwt.getAllClaimsFromToken (token);
-					List<String> roles = claims.get ("role", List.class);
-					return new UsernamePasswordAuthenticationToken (username, null, roles.stream ().map (SimpleGrantedAuthority::new).collect (Collectors.toList ()));
-				});
+		return Mono.just (jwt.validateToken (token)).filter (valid -> valid).switchIfEmpty (Mono.empty ()).map (valid -> {
+			Claims claims = jwt.getAllClaimsFromToken (token);
+			List<String> roles = claims.get ("role", List.class);
+			return new UsernamePasswordAuthenticationToken (username, null,
+															roles.stream ().map (SimpleGrantedAuthority::new).collect (Collectors.toList ()));
+		});
 	}
 }
