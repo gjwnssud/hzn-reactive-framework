@@ -1,6 +1,6 @@
 package com.hzn.reactive.framework.config.security;
 
-import com.hzn.reactive.framework.api.enums.Role;
+import com.hzn.reactive.framework.enums.Roles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +41,7 @@ public class SecurityConfig {
 																		  () -> exchange.getResponse ().setStatusCode (HttpStatus.FORBIDDEN))))
 			.authenticationManager (authenticationManager).securityContextRepository (securityContextRepository).authorizeExchange (
 					authorizeExchangeSpec -> authorizeExchangeSpec.matchers (permitAllMatchers ()).permitAll ().matchers (roleAdminMatchers ())
-																  .hasRole (Role.ROLE_ADMIN.name ()).anyExchange ().authenticated ());
+																  .hasRole (Roles.ROLE_ADMIN.name ()).anyExchange ().authenticated ());
 		return http.build ();
 	}
 

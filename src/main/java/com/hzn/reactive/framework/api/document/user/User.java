@@ -1,7 +1,7 @@
 package com.hzn.reactive.framework.api.document.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hzn.reactive.framework.api.enums.Role;
+import com.hzn.reactive.framework.enums.Roles;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,7 +24,7 @@ public class User implements UserDetails {
 	private String username;
 	private String password;
 	private Boolean enabled;
-	private List<Role> roles;
+	private List<Roles> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities () {
