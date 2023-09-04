@@ -1,5 +1,7 @@
 package com.hzn.reactive.framework.config.security;
 
+import com.hzn.reactive.framework.api.enums.Role;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.util.matcher.PathPatternParserServerWebExchangeMatcher;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
@@ -36,9 +40,8 @@ public class SecurityConfig {
 																  .accessDeniedHandler ((exchange, denied) -> Mono.fromRunnable (
 																		  () -> exchange.getResponse ().setStatusCode (HttpStatus.FORBIDDEN))))
 			.authenticationManager (authenticationManager).securityContextRepository (securityContextRepository).authorizeExchange (
-					authorizeExchangeSpec -> authorizeExchangeSpec.pathMatchers (HttpMethod.OPTIONS).permitAll ()
-																  .pathMatchers ("/", "/favicon.ico", "/login").permitAll ().anyExchange ()
-																  .authenticated ());
+					authorizeExchangeSpec -> authorizeExchangeSpec.matchers (permitAllMatchers ()).permitAll ().matchers (roleAdminMatchers ())
+																  .hasRole (Role.ROLE_ADMIN.name ()).anyExchange ().authenticated ());
 		return http.build ();
 	}
 
@@ -53,5 +56,23 @@ public class SecurityConfig {
 		configMap.put ("/**", corsConfiguration);
 		corsConfigurationSource.setCorsConfigurations (configMap);
 		return corsConfigurationSource;
+	}
+
+	@Bean
+	public ServerWebExchangeMatcher[] permitAllMatchers () {
+		List<ServerWebExchangeMatcher> matchers = new ArrayList<> ();
+		matchers.add (new PathPatternParserServerWebExchangeMatcher ("/", HttpMethod.GET));
+		matchers.add (new PathPatternParserServerWebExchangeMatcher ("/favicon.ico", HttpMethod.GET));
+		matchers.add (new PathPatternParserServerWebExchangeMatcher ("/login", HttpMethod.GET));
+		ServerWebExchangeMatcher[] patterns = new PathPatternParserServerWebExchangeMatcher[matchers.size ()];
+		return matchers.toArray (patterns);
+	}
+
+	@Bean
+	public ServerWebExchangeMatcher[] roleAdminMatchers () {
+		List<ServerWebExchangeMatcher> matchers = new ArrayList<> ();
+		matchers.add (new PathPatternParserServerWebExchangeMatcher ("/admin/**"));
+		ServerWebExchangeMatcher[] patterns = new PathPatternParserServerWebExchangeMatcher[matchers.size ()];
+		return matchers.toArray (patterns);
 	}
 }
