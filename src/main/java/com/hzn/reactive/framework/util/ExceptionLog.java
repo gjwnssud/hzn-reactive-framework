@@ -1,9 +1,11 @@
 package com.hzn.reactive.framework.util;
 
+import com.hzn.reactive.framework.constant.Constant;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 
@@ -43,10 +45,11 @@ public class ExceptionLog {
 			lineNumber = stackTraceElement.getLineNumber ();
 			message = t.getMessage ();
 		}
-		logger.error ("[ClassName = {}]", className);
-		logger.error ("[MethodName = {}]", methodName);
-		logger.error ("[LineNumber = {}]", lineNumber);
-		logger.error ("[Message = {}]", message);
+		String traceId = MDC.get (Constant.TRACE_ID);
+		logger.error ("{} - [ClassName = {}]", traceId, className);
+		logger.error ("{} - [MethodName = {}]", traceId, methodName);
+		logger.error ("{} - [LineNumber = {}]", traceId, lineNumber);
+		logger.error ("{} - [Message = {}]", traceId, message);
 	}
 
 	@Getter

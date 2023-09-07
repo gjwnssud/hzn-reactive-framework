@@ -1,5 +1,6 @@
 package com.hzn.reactive.framework.config.aspect;
 
+import com.hzn.reactive.framework.constant.Constant;
 import com.hzn.reactive.framework.exception.HznException;
 import com.hzn.reactive.framework.util.ExceptionLog;
 import com.hzn.reactive.framework.util.ExceptionLog.ExceptionInfo;
@@ -18,7 +19,6 @@ import org.springframework.util.StopWatch;
 @Component
 @Order (0)
 public class ServiceLog {
-	public static final String TRACE_ID = "traceId";
 
 	@Around ("execution(public * com.hzn.reactive.framework.api..service..*(..))")
 	public Object logging (ProceedingJoinPoint point) throws Throwable {
@@ -26,7 +26,7 @@ public class ServiceLog {
 		Logger logger = LoggerFactory.getLogger (signature.getDeclaringTypeName ());
 		String className = signature.getDeclaringType ().getSimpleName ();
 		String methodName = signature.getName ();
-		String traceId = MDC.get (TRACE_ID);
+		String traceId = MDC.get (Constant.TRACE_ID);
 		logger.info ("{} - [{}.{}] start.", traceId, className, methodName);
 		StopWatch stopWatch = new StopWatch ();
 		stopWatch.start ();
