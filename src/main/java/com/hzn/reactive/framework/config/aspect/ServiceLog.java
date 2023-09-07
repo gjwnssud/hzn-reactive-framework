@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.aspect;
+package com.hzn.reactive.framework.config.aspect;
 
 import com.hzn.reactive.framework.exception.HznException;
 import com.hzn.reactive.framework.util.ExceptionLog;
@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -17,6 +18,7 @@ import org.springframework.util.StopWatch;
 @Component
 @Order (0)
 public class ServiceLog {
+	public static final String TRACE_ID = "traceId";
 
 	@Around ("execution(public * com.hzn.reactive.framework.api..service..*(..))")
 	public Object logging (ProceedingJoinPoint point) throws Throwable {
@@ -24,8 +26,8 @@ public class ServiceLog {
 		Logger logger = LoggerFactory.getLogger (signature.getDeclaringTypeName ());
 		String className = signature.getDeclaringType ().getSimpleName ();
 		String methodName = signature.getName ();
-
-		logger.info ("[{}.{}] start.", className, methodName);
+		String traceId = MDC.get (TRACE_ID);
+		logger.info ("{} - [{}.{}] start.", traceId, className, methodName);
 		StopWatch stopWatch = new StopWatch ();
 		stopWatch.start ();
 		Object object;
@@ -41,7 +43,7 @@ public class ServiceLog {
 		} finally {
 			stopWatch.stop ();
 		}
-		logger.info ("[{}.{}] end. elapsed time : {} sec", className, methodName, (double) stopWatch.getLastTaskTimeMillis () / 1000);
+		logger.info ("{} - [{}.{}] end. elapsed time : {} sec", traceId, className, methodName, (double) stopWatch.getLastTaskTimeMillis () / 1000);
 		return object;
 	}
 }
