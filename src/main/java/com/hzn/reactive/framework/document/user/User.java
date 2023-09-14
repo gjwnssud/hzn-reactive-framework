@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.api.document.user;
+package com.hzn.reactive.framework.document.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hzn.reactive.framework.enums.Roles;

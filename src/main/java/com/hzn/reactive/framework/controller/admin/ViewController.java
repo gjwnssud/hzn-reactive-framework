@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.controller;
+package com.hzn.reactive.framework.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

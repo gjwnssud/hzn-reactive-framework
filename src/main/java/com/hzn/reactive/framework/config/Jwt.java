@@ -1,6 +1,6 @@
 package com.hzn.reactive.framework.config;
 
-import com.hzn.reactive.framework.api.document.user.User;
+import com.hzn.reactive.framework.document.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
