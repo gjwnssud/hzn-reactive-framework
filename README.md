@@ -1,5 +1,5 @@
 # hzn-reactive-framework
-it's a personal framework
+Skeleton project for reactive.
 
 ## Database
 - MongoDB 5.0.17
