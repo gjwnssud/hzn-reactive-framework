@@ -1,8 +1,8 @@
 package com.hzn.reactive.framework.init;
 
-import com.hzn.reactive.framework.service.user.UserService;
+import com.hzn.reactive.framework.api.v1.service.user.UserService;
 import com.hzn.reactive.framework.config.PBKDF2Encoder;
-import com.hzn.reactive.framework.document.user.User;
+import com.hzn.reactive.framework.api.v1.document.user.User;
 import com.hzn.reactive.framework.enums.Roles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class InitialDataSeeder implements ApplicationListener<ApplicationStarted
 
 	private Mono<User> createAdminUser () {
 		User user = User.builder ().id (UUID.randomUUID ().toString ()).username ("admin").password (passwordEncoder.encode ("admin"))
-						.roles (List.of (Roles.ROLE_ADMIN)).build ();
+		                .roles (List.of (Roles.ROLE_ADMIN)).build ();
 		return userService.save (user).doOnNext (u -> log.info ("Admin user created successfully"));
 	}
 }
