@@ -1,6 +1,6 @@
 package com.hzn.reactive.framework.api.v1.repository.user;
 
-import com.hzn.reactive.framework.api.v1.document.user.User;
+import com.hzn.reactive.framework.document.user.User;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 

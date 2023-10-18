@@ -1,4 +1,4 @@
-package com.hzn.reactive.framework.api.v1.document.user;
+package com.hzn.reactive.framework.document.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hzn.reactive.framework.enums.Roles;
@@ -28,9 +28,7 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities () {
-		return roles.stream ()
-					.map (role -> new SimpleGrantedAuthority (role.name ()))
-					.collect (Collectors.toList ());
+		return roles.stream ().map (role -> new SimpleGrantedAuthority (role.name ())).collect (Collectors.toList ());
 	}
 
 	@JsonIgnore

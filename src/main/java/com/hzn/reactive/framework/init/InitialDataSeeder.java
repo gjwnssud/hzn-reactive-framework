@@ -2,7 +2,7 @@ package com.hzn.reactive.framework.init;
 
 import com.hzn.reactive.framework.api.v1.service.user.UserService;
 import com.hzn.reactive.framework.config.PBKDF2Encoder;
-import com.hzn.reactive.framework.api.v1.document.user.User;
+import com.hzn.reactive.framework.document.user.User;
 import com.hzn.reactive.framework.enums.Roles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

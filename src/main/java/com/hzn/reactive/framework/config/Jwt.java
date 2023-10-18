@@ -1,6 +1,6 @@
 package com.hzn.reactive.framework.config;
 
-import com.hzn.reactive.framework.api.v1.document.user.User;
+import com.hzn.reactive.framework.document.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -57,7 +57,7 @@ public class Jwt {
 		final Date createdDate = new Date ();
 		final Date expirationDate = new Date (createdDate.getTime () + expirationTimeLong * 1000);
 		return Jwts.builder ().setClaims (claims).setSubject (username).setIssuedAt (createdDate).setExpiration (expirationDate).signWith (key)
-				   .compact ();
+		           .compact ();
 	}
 
 	public Boolean validateToken (String token) {
